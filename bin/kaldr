@@ -1,0 +1,3 @@
+#!/bin/bash
+kaldr=`dirname $0`/../lib/main.js
+exec node $kaldr $@
