@@ -8,15 +8,17 @@ Simple logger for client-side errors
 
 # Client
 
+Load kaldr
 ```html
 <iframe id="#logger" src="http://localhost:3000/kaldr.frame#" style="display:none"></iframe>
 ```
 
+Send message to kaldr
 ```js
 var logger = document.getElementById('logger'),
 	src = logger.getAttribute('src').split('#')[0];
 
 window.onerror = function (mesage, file, line) {
-	logger.setAttribute('src', src + '#' + message + ' in ' + file + ' at line ' + line)
+	logger.setAttribute('src', src + '#' + message + ' in ' + file + ' at line ' + line);
 };
 ```
