@@ -2,6 +2,7 @@
 	"name": "kaldr",
 	"version": "0.0.1",
 	"description": "Simple logger for client-side errors",
+	"keywords": ["log", "server", "http"],
 	"main": "lib/main.js",
 	"author": {
 		"name": "Alexander Nazarov",
@@ -15,7 +16,7 @@
 		"url": "git://github.com/n4kz/kaldr.git"
 	},
 	"dependencies": {
-		"crixalis": ">=0.2.4",
+		"crixalis": ">=0.3.0",
 		"optimist": "*"
 	},
 	"devDependencies": {

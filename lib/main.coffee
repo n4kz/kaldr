@@ -19,8 +19,8 @@ if argv.version
 	console.log('0.0.1')
 	process.exit()
 
-(Crixalis = new require('crixalis')())
-	.plugin('./plugins/compression')
+(Crixalis = require('crixalis'))
+	.plugin('compression')
 	.router
 		url     : '/kaldr.log'
 		methods : ['GET', 'HEAD']
@@ -64,7 +64,7 @@ frame = """
 """.replace /\t+/g, ''
 
 server = require('http')
-	.createServer(Crixalis.handler())
+	.createServer(Crixalis.handler)
 	.listen(argv.port)
 	.on('close', process.exit)
 
