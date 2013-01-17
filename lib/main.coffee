@@ -18,7 +18,7 @@ if argv.help
 	process.exit()
 
 if argv.version
-	console.log('0.0.1')
+	console.log require('../package').version
 	process.exit()
 
 (Crixalis = require('crixalis'))
