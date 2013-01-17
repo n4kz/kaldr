@@ -1,14 +1,16 @@
 argv = (optimist = require('optimist'))
 	.default('port', 8080)
+	.default('limit', 256)
 	.boolean(['help', 'version'])
 	.usage([
 		'Usage:',
-		'    kaldr [--port <number>]'
+		'    kaldr [--port <number>][--limit <number>]'
 	].join('\n'))
 	.describe
 		version : 'Show version and exit'
 		help    : 'Show help and exit'
 		port    : 'Use specified port'
+		limit   : 'Concurrent connections limit'
 	.argv
 
 if argv.help
@@ -20,19 +22,14 @@ if argv.version
 	process.exit()
 
 (Crixalis = require('crixalis'))
-	.plugin('compression')
 	.router
-		url     : '/kaldr.log'
 		methods : ['GET', 'HEAD']
-	.to ->
+	.from('/kaldr.log').to ->
 		if @cookies.message
 			console.log decodeURIComponent @cookies.message
 
 		@code = 204
-	.set
-		url: '/kaldr.frame'
-	.to ->
-		# TODO: cache-control
+	.from('/kaldr.frame').to ->
 		@body = frame
 
 Crixalis.on 'auto', ->
@@ -42,11 +39,11 @@ Crixalis.on 'auto', ->
 Crixalis.on 'default', ->
 	if @is_head or @is_get
 		@code = 404
-		@body = 'Not Found'
 	else
 		@code = 405
-		@body = 'Not allowed'
 		@headers['Allowed'] = 'GET, HEAD'
+
+	@render()
 
 frame = """
 <!DOCTYPE html><script>(function (_, $) {
@@ -68,6 +65,7 @@ server = require('http')
 	.listen(argv.port)
 	.on('close', process.exit)
 
-server.maxConnections = 512
+server.maxConnections = argv.limit
 
 process.on 'SIGINT', server.close.bind server
+process.title = 'kaldr [' + argv.port + ']'
