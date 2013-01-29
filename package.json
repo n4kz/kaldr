@@ -3,6 +3,7 @@
 	"version": "0.0.2",
 	"description": "Simple logger for client-side errors",
 	"keywords": ["log", "server", "http"],
+	"preferGlobal": true,
 	"author": {
 		"name": "Alexander Nazarov",
 		"email": "n4kz@n4kz.com"
