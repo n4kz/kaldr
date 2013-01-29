@@ -43,8 +43,6 @@ Crixalis.on 'default', ->
 		@code = 405
 		@headers['Allowed'] = 'GET, HEAD'
 
-	@render()
-
 frame = """
 <!DOCTYPE html><script>(function (_, $) {
 	window.onhashchange = function () {

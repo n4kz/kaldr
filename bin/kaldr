@@ -37,12 +37,11 @@ Crixalis.on('auto', function() {
 
 Crixalis.on('default', function() {
   if (this.is_head || this.is_get) {
-    this.code = 404;
+    return this.code = 404;
   } else {
     this.code = 405;
-    this.headers['Allowed'] = 'GET, HEAD';
+    return this.headers['Allowed'] = 'GET, HEAD';
   }
-  return this.render();
 });
 
 frame = "<!DOCTYPE html><script>(function (_, $) {\n	window.onhashchange = function () {\n		var data = _.hash.replace(/^#/, '')\n\n		if (data) {\n			$.cookie = 'message=' + encodeURIComponent(data)\n			Image().src = _.href.replace(/frame.*$/, 'log')\n			$.cookie = 'message=; expires=Thu, 01 Jan 1970 00:00:01 GMT;'\n			_.hash = ''\n		}\n	}\n}(location, document))</script>".replace(/\t+/g, '');
