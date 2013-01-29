@@ -1,0 +1,4 @@
+t/lib/*.js
+t/*.js
+*.log
+*.swp

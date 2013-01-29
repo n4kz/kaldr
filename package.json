@@ -20,7 +20,8 @@
 		"optimist": "*"
 	},
 	"devDependencies": {
-		"coffee-script": "*"
+		"coffee-script": "*",
+		"vows": "*"
 	},
 	"engines": {
 		"node": ">=0.6.0"
