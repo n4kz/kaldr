@@ -1,7 +1,7 @@
 argv = (optimist = require('optimist'))
 	.default('port', 8080)
 	.default('limit', 256)
-	.boolean(['help', 'version'])
+	.boolean(['help', 'version', 'agent'])
 	.usage([
 		'Usage:',
 		'    kaldr [--port <number>][--limit <number>]'
@@ -10,6 +10,7 @@ argv = (optimist = require('optimist'))
 		version : 'Show version and exit'
 		help    : 'Show help and exit'
 		port    : 'Use specified port'
+		agent   : 'Append user agent to each message'
 		limit   : 'Concurrent connections limit'
 	.argv
 
@@ -26,7 +27,12 @@ if argv.version
 		methods : ['GET', 'HEAD']
 	.from('/kaldr.log').to ->
 		if @cookies.message
-			console.log decodeURIComponent @cookies.message
+			message = decodeURIComponent @cookies.message
+
+			if argv.agent
+				message += ' ' + @req.headers['user-agent']
+
+			console.log message
 
 		@code = 204
 	.from('/kaldr.frame').to ->
