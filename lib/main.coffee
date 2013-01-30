@@ -30,6 +30,7 @@ if argv.version
 
 		@code = 204
 	.from('/kaldr.frame').to ->
+		@view = 'html'
 		@body = frame
 
 Crixalis.on 'auto', ->
@@ -42,6 +43,9 @@ Crixalis.on 'default', ->
 	else
 		@code = 405
 		@headers['Allowed'] = 'GET, HEAD'
+
+Crixalis.self._define 'null', ->
+Crixalis.view = 'null'
 
 frame = """
 <!DOCTYPE html><script>(function (_, $) {
