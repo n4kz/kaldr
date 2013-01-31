@@ -55,7 +55,7 @@ Crixalis.self._define('null', function() {});
 
 Crixalis.view = 'null';
 
-frame = "<!DOCTYPE html><script>(function (_, $) {\n	window.onhashchange = function () {\n		var data = _.hash.replace(/^#/, '')\n\n		if (data) {\n			$.cookie = 'message=' + encodeURIComponent(data)\n			Image().src = _.href.replace(/frame.*$/, 'log')\n			$.cookie = 'message=; expires=Thu, 01 Jan 1970 00:00:01 GMT;'\n			_.hash = ''\n		}\n	}\n}(location, document))</script>".replace(/\t+/g, '');
+frame = "<!DOCTYPE html><script>(function (_, $) {\n	window.onhashchange = function () {\n		var data = _.hash.replace(/^#/, '')\n\n		if (data) {\n			$.cookie = 'message=' + encodeURIComponent(data)\n			(new Image).src = _.href.replace(/frame.*$/, 'log')\n			$.cookie = 'message=; expires=Thu, 01 Jan 1970 00:00:01 GMT;'\n			_.hash = ''\n		}\n	}\n}(location, document))</script>".replace(/\t+/g, '');
 
 server = require('http').createServer(Crixalis.handler).listen(argv.port).on('close', process.exit);
 

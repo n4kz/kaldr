@@ -60,7 +60,7 @@ frame = """
 
 		if (data) {
 			$.cookie = 'message=' + encodeURIComponent(data)
-			Image().src = _.href.replace(/frame.*$/, 'log')
+			(new Image).src = _.href.replace(/frame.*$/, 'log')
 			$.cookie = 'message=; expires=Thu, 01 Jan 1970 00:00:01 GMT;'
 			_.hash = ''
 		}
