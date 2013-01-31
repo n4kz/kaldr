@@ -1,6 +1,6 @@
 {
 	"name": "kaldr",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"description": "Simple logger for client-side errors",
 	"license": "LGPLv3",
 	"keywords": ["log", "server", "http"],
