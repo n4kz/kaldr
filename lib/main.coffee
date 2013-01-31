@@ -56,17 +56,17 @@ Crixalis.view = 'null'
 frame = """
 <!DOCTYPE html><script>(function (_, $) {
 	window.onhashchange = function () {
-		var data = _.hash.replace(/^#/, '')
+		var data = _.hash.replace(/^#/, '');
 
 		if (data) {
-			$.cookie = 'message=' + encodeURIComponent(data)
-			(new Image).src = _.href.replace(/frame.*$/, 'log')
-			$.cookie = 'message=; expires=Thu, 01 Jan 1970 00:00:01 GMT;'
-			_.hash = ''
+			$.cookie = 'message=' + encodeURIComponent(data);
+			(new Image).src = _.href.replace(/frame.*$/, 'log');
+			$.cookie = 'message=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+			_.hash = '';
 		}
 	}
 }(location, document))</script>
-""".replace /\t+/g, ''
+""".replace /[\n\t]+/g, ''
 
 server = require('http')
 	.createServer(Crixalis.handler)
