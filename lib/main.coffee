@@ -4,7 +4,9 @@ argv = (optimist = require('optimist'))
 	.boolean(['help', 'version', 'agent'])
 	.usage([
 		'Usage:',
-		'    kaldr [--port <number>][--limit <number>]'
+		'    kaldr [--port <number>] [--limit <number>] [--agent]',
+		'    kaldr --version',
+		'    kaldr --help'
 	].join('\n'))
 	.describe
 		version : 'Show version and exit'
@@ -19,7 +21,7 @@ if argv.help
 	process.exit()
 
 if argv.version
-	console.log require('../package').version
+	console.log(require('../package').version)
 	process.exit()
 
 (Crixalis = require('crixalis'))
@@ -27,22 +29,27 @@ if argv.version
 		methods : ['GET', 'HEAD']
 	.from('/kaldr.log').to ->
 		if @cookies.message
-			message = decodeURIComponent @cookies.message
+			message = decodeURIComponent(@cookies.message)
 
 			if argv.agent
-				message += ' ' + @req.headers['user-agent']
+				message += ' '
+				message += @req.headers['user-agent']
 
-			console.log message
+			console.log(message)
 
 		@code = 204
 	.from('/kaldr.frame').to ->
 		@view = 'html'
 		@body = frame
 
+# Add Connection header to all responses
 Crixalis.on 'auto', ->
 	@headers['Connection'] = 'close'
 	@select()
 
+# Default handler
+# 404 for unknown URI
+# 405 for unknown methods
 Crixalis.on 'default', ->
 	if @is_head or @is_get
 		@code = 404
@@ -50,8 +57,8 @@ Crixalis.on 'default', ->
 		@code = 405
 		@headers['Allowed'] = 'GET, HEAD'
 
-Crixalis.self._define 'null', ->
-Crixalis.view = 'null'
+# Reset view
+Crixalis.view = null
 
 frame = """
 <!DOCTYPE html><script>(function (_, $) {
@@ -66,14 +73,11 @@ frame = """
 		}
 	}
 }(location, document))</script>
-""".replace /[\n\t]+/g, ''
+""".replace(/[\n\t]+/g, '')
 
-server = require('http')
-	.createServer(Crixalis.handler)
-	.listen(argv.port)
+(server = Crixalis.start('http', argv.port))
 	.on('close', process.exit)
+	.maxConnections = argv.limit
 
-server.maxConnections = argv.limit
-
-process.on 'SIGINT', server.close.bind server
-process.title = 'kaldr [' + argv.port + ']'
+process.on('SIGINT', -> server.close())
+process.title = "kaldr [#{argv.port}]"

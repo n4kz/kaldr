@@ -1,9 +1,9 @@
 compile: lib/main.coffee
 	echo '#!/usr/bin/env node' > bin/kaldr
-	coffee --compile --lint --bare --print lib/main.coffee >> bin/kaldr
+	coffee --compile --bare --print lib/main.coffee >> bin/kaldr
 
 test: compile
-	coffee --lint --compile t/lib/*.coffee t/*.coffee
+	coffee --compile t/lib/*.coffee t/*.coffee
 	bin/kaldr --port 31337 &
 	sleep 1
 	vows --tap t/*.js
