@@ -1,9 +1,9 @@
 {
 	"name": "kaldr",
-	"version": "0.0.5",
+	"version": "0.1.0",
 	"description": "Simple logger for client-side errors",
-	"license": "LGPLv3",
-	"keywords": ["log", "server", "http"],
+	"license": "LGPL-3.0",
+	"keywords": ["log", "web", "server", "http"],
 	"preferGlobal": true,
 	"author": {
 		"name": "Alexander Nazarov",
@@ -17,7 +17,7 @@
 		"url": "git://github.com/n4kz/kaldr.git"
 	},
 	"dependencies": {
-		"crixalis": ">=0.3.0",
+		"crixalis": ">=0.4.3",
 		"optimist": "*"
 	},
 	"devDependencies": {
