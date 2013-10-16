@@ -32,7 +32,7 @@ curl -b 'message=Hello, World!' localhost:8080/kaldr.log
 
 Load kaldr
 ```html
-<iframe id="#logger" src="http://localhost:8080/kaldr.frame#" style="display:none"></iframe>
+<iframe id="logger" src="http://localhost:8080/kaldr.frame#" style="display:none"></iframe>
 ```
 
 Send message to kaldr
