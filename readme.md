@@ -1,16 +1,38 @@
 # Kaldr
 
-Simple logger for client-side errors
+Simple and fast logger for client-side errors
 
-# Server
+# Installation
 
-	kaldr --port 3000 > client.log &
+```bash
+# Global
+npm -g install kaldr
 
-# Client
+# Local
+npm install kaldr
+```
+
+If you have chosen local installation, check your `PATH` environment variable. `npm` creates symlinks to
+all binaries in `~/node_modules/.bin` hidden folder. So you may want to prepend it to `PATH`.
+
+# Server setup
+
+```bash
+# Log to console
+kaldr
+
+# Log to file
+kaldr >> client.log &
+
+# Test kaldr
+curl -b 'message=Hello, World!' localhost:8080/kaldr.log
+```
+
+# Client setup
 
 Load kaldr
 ```html
-<iframe id="#logger" src="http://localhost:3000/kaldr.frame#" style="display:none"></iframe>
+<iframe id="#logger" src="http://localhost:8080/kaldr.frame#" style="display:none"></iframe>
 ```
 
 Send message to kaldr
